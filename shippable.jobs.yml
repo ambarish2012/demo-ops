@@ -1,0 +1,140 @@
+jobs:
+
+#---------------------------------------------------------------#
+#----------------------------   Ops   --------------------------#
+#---------------------------------------------------------------#
+
+# Provision TEST VMs and ECS cluster with Terraform
+  - name: prov_ecs_test
+    type: runCLI
+    steps:
+      - IN: e2eshipdemo-release-ecs-beta
+      - IN: test_tf_state
+      - IN: ami_sec_approved
+        switch: off
+      - IN: test_vpc_conf
+        switch: off
+      - IN: aws_pem
+        switch: off
+      - IN: aws_creds
+        switch: off
+      - IN: auto_repo
+        switch: off
+      - TASK:
+        - script: . /build/IN/auto_repo/gitRepo/infra/shipUtil.sh
+        - script: . /build/IN/auto_repo/gitRepo/infra/awsTestECS/provTestInfra.sh create
+        - script: sleep 30s
+      - OUT: e2eshipdemo-cluster-ecs-test
+      - OUT: test_tf_state
+    on_success:
+      - script: echo "SUCCESS"
+    on_failure:
+      - script: echo "FAILURE"
+    always:
+      - script: . /build/IN/auto_repo/gitRepo/infra/shipUtil.sh && . /build/IN/auto_repo/gitRepo/infra/archiveState.sh infra/awsTestECS test_tf_state
+    flags:
+      - e2eShippableDemo
+
+# Provision PROD VMs and ECS cluster with Terraform
+  - name: prov_ecs_prod
+    type: runCLI
+    steps:
+      - IN: prod_tf_state
+      - IN: ami_sec_approved
+      - IN: prod_vpc_conf
+        switch: off
+      - IN: aws_pem
+        switch: off
+      - IN: aws_creds
+        switch: off
+      - IN: auto_repo
+        switch: off
+      - TASK:
+        - script: . /build/IN/auto_repo/gitRepo/infra/shipUtil.sh
+        - script: . /build/IN/auto_repo/gitRepo/infra/awsProdECS/provProdInfra.sh create
+      - OUT: e2eshipdemo-cluster-ecs-prod
+      - OUT: prod_tf_state
+    on_success:
+      - script: echo "SUCCESS"
+    on_failure:
+      - script: echo "FAILURE"
+    always:
+      - script: . /build/IN/auto_repo/gitRepo/infra/shipUtil.sh && . /build/IN/auto_repo/gitRepo/infra/archiveState.sh infra/awsProdECS prod_tf_state
+    flags:
+      - e2eShippableDemo
+
+# PROD deployment to Amazon ECS
+  - name: e2eshipdemo-deploy-ecs-prod
+    type: deploy
+    steps:
+      - IN: e2eshipdemo-release-ecs-prod
+        switch: off
+      - IN: e2eshipdemo-params-ecs-prod
+      - IN: e2eshipdemo-img-options-ecs-prod
+      - IN: e2eshipdemo-replicas-ecs-prod
+      - IN: e2eshipdemo-cluster-ecs-prod
+      - IN: e2eshipdemo-alb-prod
+        applyTo:
+          - manifest: e2eshipdemo-manifest-ecs
+            image: e2eshipdemo-img-ecs
+            port: 80
+      - TASK: managed
+        # deployMethod: replace
+    flags:
+      - e2eShippableDemo
+
+# Deprovision TEST VMs and ECS cluster
+  - name: de_prov_ecs_test
+    type: runCLI
+    steps:
+      - IN: sit
+        switch: off
+      - IN: test_tf_state
+      - IN: test_vpc_conf
+        switch: off
+      - IN: aws_creds
+        switch: off
+      - IN: auto_repo
+        switch: off
+      - IN: ami_sec_approved
+        switch: off
+      - TASK:
+        - script: . /build/IN/auto_repo/gitRepo/infra/shipUtil.sh
+        - script: . /build/IN/auto_repo/gitRepo/infra/awsTestECS/provTestInfra.sh destroy
+      - OUT: test_tf_state
+    on_success:
+      - script: echo "SUCCESS"
+    on_failure:
+      - script: echo "FAILURE"
+    always:
+      - script: . /build/IN/auto_repo/gitRepo/infra/shipUtil.sh && . /build/IN/auto_repo/gitRepo/infra/archiveState.sh infra/awsTestECS test_tf_state
+    flags:
+      - e2eShippableDemo
+
+# Deprovision PROD VMs and ECS cluster
+  - name: de_prov_ecs_prod
+    type: runCLI
+    steps:
+      - IN: prov_ecs_prod
+        switch: off
+      - IN: prod_tf_state
+      - IN: prod_vpc_conf
+        switch: off
+      - IN: aws_creds
+        switch: off
+      - IN: auto_repo
+        switch: off
+      - IN: ami_sec_approved
+        switch: off
+      - TASK:
+        - script: . /build/IN/auto_repo/gitRepo/infra/shipUtil.sh
+        - script: . /build/IN/auto_repo/gitRepo/infra/awsProdECS/provProdInfra.sh destroy
+      - OUT: prod_tf_state
+    on_success:
+      - script: echo "SUCCESS"
+    on_failure:
+      - script: echo "FAILURE"
+    always:
+      - script: . /build/IN/auto_repo/gitRepo/infra/shipUtil.sh && . /build/IN/auto_repo/gitRepo/infra/archiveState.sh infra/awsProdECS prod_tf_state
+    flags:
+      - e2eShippableDemo

@@ -1,0 +1,71 @@
+resources:
+
+#---------------------------------------------------------------#
+#------------------------------ Ops ----------------------------#
+#---------------------------------------------------------------#
+
+## TEST resources
+
+# TEST Terraform STATE
+  - name: test_tf_state
+    type: state
+    flags:
+      - e2eShippableDemo
+
+# TEST env - AWS cluster
+  - name: e2eshipdemo-cluster-ecs-test
+    type: cluster
+    integration: ttrahan-aws # replace with your AWS integration name
+    pointer:
+      # replace with your Amazon ECS cluster name and region
+      sourceName : "test-aws"
+      region: "us-east-1"
+    flags:
+      - e2eShippableDemo
+
+# TEST AWS ALB target group
+  - name: e2eshipdemo-alb-test     #required
+    type: loadBalancer      #required
+    pointer:
+      # replace with the ARN for your Amazon EC/2 Application Load Balancer Target Group
+      sourceName: "arn:aws:elasticloadbalancing:us-east-1:288971733297:targetgroup/demoWebTest/56a74253de7101ee"
+      method: application
+    flags:
+      - e2eShippableDemo
+
+## PROD resources
+
+# Terraform STATE for PROD
+  - name: prod_tf_state
+    type: state
+    flags:
+      - e2eShippableDemo
+
+# PROD env - AWS cluster
+  - name: e2eshipdemo-cluster-ecs-prod
+    type: cluster
+    integration: ttrahan-aws # replace with your AWS integration name
+    pointer:
+      # replace with your Amazon ECS cluster name and region
+      sourceName : "prod-aws"
+      region: "us-east-1"
+    flags:
+      - e2eShippableDemo
+
+# PROD AWS ALB target group
+  - name: e2eshipdemo-alb-prod     #required
+    type: loadBalancer      #required
+    pointer:
+      # replace with the ARN for your Amazon EC/2 Application Load Balancer Target Group
+      sourceName: "arn:aws:elasticloadbalancing:us-east-1:288971733297:targetgroup/demoWeb/29435cb0f31ac400"
+      method: application
+    flags:
+      - e2eShippableDemo
+
+# PROD replicas
+  - name: e2eshipdemo-replicas-ecs-prod
+    type: replicas
+    version:
+      count: 2
+    flags:
+      - e2eShippableDemo
