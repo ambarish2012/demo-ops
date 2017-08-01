@@ -15,7 +15,7 @@ resources:
 # TEST env - AWS cluster
   - name: e2eshipdemo-cluster-ecs-test
     type: cluster
-    integration: ttrahan-aws # replace with your AWS integration name
+    integration: dr-aws # replace with your AWS integration name
     pointer:
       # replace with your Amazon ECS cluster name and region
       sourceName : "test-aws"
@@ -44,7 +44,7 @@ resources:
 # PROD env - AWS cluster
   - name: e2eshipdemo-cluster-ecs-prod
     type: cluster
-    integration: ttrahan-aws # replace with your AWS integration name
+    integration: dr-aws # replace with your AWS integration name
     pointer:
       # replace with your Amazon ECS cluster name and region
       sourceName : "prod-aws"
