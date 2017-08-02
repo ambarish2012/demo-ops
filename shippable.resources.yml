@@ -4,6 +4,17 @@ resources:
 #------------------------------ Ops ----------------------------#
 #---------------------------------------------------------------#
 
+
+# Automation scripts repo
+  - name: ops_repo
+    type: gitRepo
+    integration: "demo-ops-github"
+    pointer:
+      sourceName: "aye0aye/demo-ops"
+      branch: master
+    flags:
+      - e2eShippableDemo
+
 ## TEST resources
 
 # TEST Terraform STATE
