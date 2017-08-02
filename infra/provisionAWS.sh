@@ -6,7 +6,7 @@ export STATE_RES=$3
 export RES_CONF=$4
 export OUT_RES_SET=$5
 
-export RES_REPO="auto_repo"
+export RES_REPO="ops_repo"
 export RES_AWS_CREDS="aws_creds"
 export RES_AWS_PEM="aws_pem"
 export TF_STATEFILE="terraform.tfstate"
