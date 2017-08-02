@@ -29,7 +29,7 @@ resource "aws_alb" "ecs-prod" {
   internal = false
   security_groups = [
     "${var.prod_public_sg_id}"]
-  subnets = "${var.prod_public_sn_id}"
+  subnets = [ "${var.prod_public_sn_id}" ]
 
   tags {
     Environment = "production"

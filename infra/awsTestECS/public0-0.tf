@@ -29,7 +29,7 @@ resource "aws_alb" "ecs-test" {
   internal = false
   security_groups = [
     "${var.test_public_sg_id}"]
-  subnets = "${var.test_public_sn_id}"
+  subnets = [ "${var.test_public_sn_id}" ]
 
   tags {
     Environment = "test"
