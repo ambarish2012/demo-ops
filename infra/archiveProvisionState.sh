@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 export CURR_JOB_CONTEXT=$1
-export REPO_RES="auto_repo"
+export REPO_RES="ops_repo"
 
 export REPO_RES_UP=$(echo $REPO_RES | awk '{print toupper($0)}')
 export REPO_RES_STATE=$(eval echo "$"$REPO_RES_UP"_STATE") #loc of git repo clone

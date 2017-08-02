@@ -7,7 +7,7 @@ export RES_CONF="prod_vpc_conf"
 export RES_AMI="ami_sec_approved"
 export OUT_RES_SET="e2eshipdemo-cluster-ecs-prod"
 
-export RES_REPO="auto_repo"
+export RES_REPO="ops_repo"
 export RES_AWS_CREDS="aws_creds"
 export RES_AWS_PEM="aws_pem"
 export TF_STATEFILE="terraform.tfstate"
