@@ -32,7 +32,7 @@ variable "ecsAmi" {
 # this is a keyName for key pairs
 variable "aws_key_name" {
   description = "Key Pair Name used to login to the box"
-  default = "demo-key"
+  default = "dr-kp-us-east"
 }
 
 # this is a PEM key for key pairs
