@@ -23,3 +23,15 @@ resource "aws_instance" "testECSIns" {
     Name = "testECSIns${count.index}"
   }
 }
+
+resource "aws_alb" "ecs-test" {
+  name = "ecs-test-alb"
+  internal = false
+  security_groups = [
+    "${var.test_public_sg_id}"]
+  subnets = "${var.test_public_sn_id}"
+
+  tags {
+    Environment = "test"
+  }
+}

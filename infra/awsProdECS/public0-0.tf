@@ -23,3 +23,15 @@ resource "aws_instance" "prodECSIns" {
     Name = "prodECSIns${count.index}"
   }
 }
+
+resource "aws_alb" "ecs-prod" {
+  name = "ecs-prod-alb"
+  internal = false
+  security_groups = [
+    "${var.prod_public_sg_id}"]
+  subnets = "${var.prod_public_sn_id}"
+
+  tags {
+    Environment = "production"
+  }
+}
