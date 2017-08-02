@@ -11,7 +11,7 @@ resource "aws_instance" "testECSIns" {
   instance_type = "t2.micro"
   key_name = "${var.aws_key_name}"
   subnet_id = "${var.test_public_sn_id}"
-  iam_instance_profile = "demoECSInstProf"
+  iam_instance_profile = "e2eDemoECSInstProf"
   associate_public_ip_address = true
   source_dest_check = false
   user_data = "#!/bin/bash \n echo ECS_CLUSTER=${aws_ecs_cluster.test-aws.name} >> /etc/ecs/ecs.config"
