@@ -10,7 +10,9 @@ resource "aws_instance" "prodECSIns" {
   availability_zone = "${lookup(var.availability_zone, var.region)}"
   instance_type = "t2.micro"
   key_name = "${var.aws_key_name}"
-  subnet_id = "${var.prod_public_sn_id}"
+subnet_id = [
+  "${var.prod_public_sn_01_id}",
+  "${var.prod_public_sn_02_id}" ]
   iam_instance_profile = "e2eDemoECSInstProf"
   associate_public_ip_address = true
   source_dest_check = false
@@ -29,8 +31,9 @@ resource "aws_alb" "ecs-prod" {
   internal = false
   security_groups = [
     "${var.prod_public_sg_id}"]
-  subnets = [ "${var.prod_public_sn_id}" ]
-
+  subnets = [ 
+    "${var.prod_public_sn_01_id}",
+    "${var.prod_public_sn_02_id}" ]
   tags {
     Environment = "production"
   }

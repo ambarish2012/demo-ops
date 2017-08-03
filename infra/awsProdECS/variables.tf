@@ -46,6 +46,10 @@ variable "prod_public_sg_id" {
   description = "Prod VPC public security group"
 }
 
-variable "prod_public_sn_id" {
+variable "prod_public_sn_01_id" {
+  description = "Prod VPC public subnet"
+}
+
+variable "prod_public_sn_02_id" {
   description = "Prod VPC public subnet"
 }
