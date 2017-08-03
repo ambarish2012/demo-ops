@@ -26,7 +26,7 @@ export PROD_VPC_ID=$(ship_resource_get_param $RES_CONF PROD_VPC_ID)
 export PROD_PUBLIC_SN_01_ID=$(ship_resource_get_param $RES_CONF PROD_PUBLIC_SN_01_ID)
 export PROD_PUBLIC_SN_02_ID=$(ship_resource_get_param $RES_CONF PROD_PUBLIC_SN_02_ID)
 export PROD_PUBLIC_SG_ID=$(ship_resource_get_param $RES_CONF PROD_PUBLIC_SG_ID)
-export AMI_ID=$(ship_resource_get_param $RES_AMI AMI_ID)
+export AMI_ID=$(ship_resource_get_version_name $RES_AMI)
 
 set_context(){
   pushd $RES_REPO_CONTEXT
