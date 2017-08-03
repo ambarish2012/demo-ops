@@ -43,8 +43,6 @@ set_context(){
   # This restores the terraform state file
   ship_resource_copy_file_from_state $STATE_RES $TF_STATEFILE .
 
-  cat terraform.tfvars
-
   # now setup the variables based on context
   # naming the file terraform.tfvars makes terraform automatically load it
   echo "aws_access_key_id = \"$AWS_ACCESS_KEY_ID\"" > terraform.tfvars
