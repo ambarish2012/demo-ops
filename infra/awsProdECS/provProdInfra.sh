@@ -23,8 +23,8 @@ export AWS_SECRET_ACCESS_KEY=$(ship_resource_get_integration $RES_AWS_CREDS aws_
 # Now get all VPC settings
 export REGION=$(ship_resource_get_param $RES_CONF REGION)
 export PROD_VPC_ID=$(ship_resource_get_param $RES_CONF PROD_VPC_ID)
-export PROD_PUBLIC_SN_01_ID=$(ship_resource_get_param $RES_CONF PROD_PUBLIC_SN_ID)
-export PROD_PUBLIC_SN_02_ID=$(ship_resource_get_param $RES_CONF PROD_PUBLIC_SN_ID)
+export PROD_PUBLIC_SN_01_ID=$(ship_resource_get_param $RES_CONF PROD_PUBLIC_SN_01_ID)
+export PROD_PUBLIC_SN_02_ID=$(ship_resource_get_param $RES_CONF PROD_PUBLIC_SN_02_ID)
 export PROD_PUBLIC_SG_ID=$(ship_resource_get_param $RES_CONF PROD_PUBLIC_SG_ID)
 export AMI_ID=$(ship_resource_get_param $RES_AMI AMI_ID)
 
