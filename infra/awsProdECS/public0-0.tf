@@ -55,6 +55,4 @@ resource "aws_instance" "prodECSIns" {
 #   tags {
 #     Environment = "production"
 #   }
-
-
-}
+# }
