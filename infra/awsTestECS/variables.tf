@@ -45,6 +45,10 @@ variable "test_public_sg_id" {
   description = "Test VPC public security group"
 }
 
-variable "test_public_sn_id" {
+variable "test_public_sn_01_id" {
+  description = "Test VPC public subnet"
+}
+
+variable "test_public_sn_02_id" {
   description = "Test VPC public subnet"
 }
