@@ -33,7 +33,7 @@ resource "aws_instance" "prodECSIns_02" {
 
   # ami = "${var.ecsAmi}"
   ami = "${lookup(var.ecsAmi, var.region)}"
-  availability_zone = "${lookup(var.availability_zone, var.region)}"
+  availability_zone = "us-east-1b"
   instance_type = "t2.micro"
   key_name = "${var.aws_key_name}"
   subnet_id = "${var.prod_public_sn_02_id}"
