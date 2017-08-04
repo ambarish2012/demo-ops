@@ -24,15 +24,37 @@ resource "aws_instance" "prodECSIns" {
   }
 }
 
-resource "aws_alb" "ecs-prod" {
-  name = "ecs-prod-alb"
-  internal = false
-  security_groups = [
-    "${var.prod_public_sg_id}"]
-  subnets = [ 
-    "${var.prod_public_sn_01_id}",
-    "${var.prod_public_sn_02_id}" ]
-  tags {
-    Environment = "production"
-  }
+# resource "aws_alb" "ecs-prod-alb" {
+#   name = "ecs-prod-alb"
+#   internal = false
+#   security_groups = [
+#     "${var.prod_public_sg_id}"]
+#   subnets = [ 
+#     "${var.prod_public_sn_01_id}",
+#     "${var.prod_public_sn_02_id}" ]
+#   tags {
+#     Environment = "production"
+#   }
+# 
+# resource "aws_alb_target_group" "ecs-prod-tg" {
+#   name = "ecs-prod-tg"
+#   port = 80
+#   protocol = "HTTP"
+#   vpc_id = "${var.prod_vpc_id}"
+# 
+#   tags {
+#     Environment = "production"
+#   }
+# 
+# resource "aws_alb_target_group_attachment" "ecs-prod-tga" {
+#   name = "ecs-prod-tga"
+#   port = 80
+#   target_group_arn = "${aws_alb_target_group.ecs-prod-tg.arn}"
+#   target_id = 
+# 
+#   tags {
+#     Environment = "production"
+#   }
+
+
 }
