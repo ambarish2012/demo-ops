@@ -54,8 +54,6 @@ set_context(){
   echo "prod_public_sg_id = \"$PROD_PUBLIC_SG_ID\"" >> terraform.tfvars
   echo "ami_id = \"$AMI_ID\"" >> terraform.tfvars
 
-  cat terraform.tfvars
-
   popd
 }
 
