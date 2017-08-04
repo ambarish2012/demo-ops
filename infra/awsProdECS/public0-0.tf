@@ -89,17 +89,16 @@ resource "aws_alb" "ecs-prod-alb" {
   }
 }
 
-resource "aws_alb_target_group" "ecs-prod-tg" {
-  name = "ecs-prod-tg"
-  port = 80
-  protocol = "HTTP"
-  vpc_id = "${var.prod_vpc_id}"
-
-  tags {
-    Environment = "production"
-  }
-} 
-
+# resource "aws_alb_target_group" "ecs-prod-tg" {
+#   name = "ecs-prod-tg"
+#   port = 80
+#   protocol = "HTTP"
+#   vpc_id = "${var.prod_vpc_id}"
+# 
+#   tags {
+#     Environment = "production"
+#   }
+# } 
 # resource "aws_alb_target_group_attachment" "ecs-prod-tga" {
 #   name = "ecs-prod-tga"
 #   port = 80
