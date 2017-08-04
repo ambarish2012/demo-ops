@@ -15,8 +15,8 @@ resource "aws_instance" "prodECSIns" {
   associate_public_ip_address = true
   source_dest_check = false
   user_data = "#!/bin/bash \n echo ECS_CLUSTER=${aws_ecs_cluster.prod-aws.name} >> /etc/ecs/ecs.config"
-
-  vpc_security_groups_ids = [
+  
+  vpc_security_group_ids = [
     "${var.prod_public_sg_id}"]
 
   tags = {
