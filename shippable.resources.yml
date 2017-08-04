@@ -39,7 +39,7 @@ resources:
     type: loadBalancer      #required
     pointer:
       # replace with the ARN for your Amazon EC/2 Application Load Balancer Target Group
-      sourceName: "arn:aws:elasticloadbalancing:us-east-1:288971733297:targetgroup/demoWebTest/56a74253de7101ee"
+      sourceName: "arn:aws:elasticloadbalancing:us-east-1:679404489841:targetgroup/ecs-test-tg/bc20de1be2dab77d"
       method: application
     flags:
       - e2eShippableDemo
