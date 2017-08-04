@@ -1,24 +1,17 @@
 # ========================ECS Instances=======================
 
-resource "random_shuffle" "subnets" {
-  input = [
-    "${var.prod_public_sn_01_id}",
-    "${var.prod_public_sn_02_id}" ]
-  result_count = 1
-}
-
-resource "aws_instance" "prodECSIns" {
+resource "aws_instance" "prodECSIns_01" {
   depends_on = [
     "aws_ecs_cluster.prod-aws"]
 
-  count = 3
+  count = 1
 
   # ami = "${var.ecsAmi}"
   ami = "${lookup(var.ecsAmi, var.region)}"
   availability_zone = "${lookup(var.availability_zone, var.region)}"
   instance_type = "t2.micro"
   key_name = "${var.aws_key_name}"
-  subnet_id = "${random_shuffle.subnets.result}"
+  subnet_id = "${var.prod_public_sn_01_id}"
   iam_instance_profile = "e2eDemoECSInstProf"
   associate_public_ip_address = true
   source_dest_check = false
@@ -28,9 +21,60 @@ resource "aws_instance" "prodECSIns" {
     "${var.prod_public_sg_id}"]
 
   tags = {
-    Name = "prodECSIns${count.index}"
+    Name = "prodECSIns_01"
   }
 }
+
+resource "aws_instance" "prodECSIns_02" {
+  depends_on = [
+    "aws_ecs_cluster.prod-aws"]
+
+  count = 1
+
+  # ami = "${var.ecsAmi}"
+  ami = "${lookup(var.ecsAmi, var.region)}"
+  availability_zone = "${lookup(var.availability_zone, var.region)}"
+  instance_type = "t2.micro"
+  key_name = "${var.aws_key_name}"
+  subnet_id = "${var.prod_public_sn_02_id}"
+  iam_instance_profile = "e2eDemoECSInstProf"
+  associate_public_ip_address = true
+  source_dest_check = false
+  user_data = "#!/bin/bash \n echo ECS_CLUSTER=${aws_ecs_cluster.prod-aws.name} >> /etc/ecs/ecs.config"
+  
+  vpc_security_group_ids = [
+    "${var.prod_public_sg_id}"]
+
+  tags = {
+    Name = "prodECSIns_02"
+  }
+}
+
+resource "aws_instance" "prodECSIns_03" {
+  depends_on = [
+    "aws_ecs_cluster.prod-aws"]
+
+  count = 1
+
+  # ami = "${var.ecsAmi}"
+  ami = "${lookup(var.ecsAmi, var.region)}"
+  availability_zone = "${lookup(var.availability_zone, var.region)}"
+  instance_type = "t2.micro"
+  key_name = "${var.aws_key_name}"
+  subnet_id = "${var.prod_public_sn_01_id}"
+  iam_instance_profile = "e2eDemoECSInstProf"
+  associate_public_ip_address = true
+  source_dest_check = false
+  user_data = "#!/bin/bash \n echo ECS_CLUSTER=${aws_ecs_cluster.prod-aws.name} >> /etc/ecs/ecs.config"
+  
+  vpc_security_group_ids = [
+    "${var.prod_public_sg_id}"]
+
+  tags = {
+    Name = "prodECSIns_03"
+  }
+}
+
 
 # resource "aws_alb" "ecs-prod-alb" {
 #   name = "ecs-prod-alb"
