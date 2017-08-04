@@ -4,6 +4,7 @@ resource "random_shuffle" "subnets" {
   input = [
     "${var.prod_public_sn_01_id}",
     "${var.prod_public_sn_02_id}" ]
+  result_count = 1
 }
 
 resource "aws_instance" "prodECSIns" {
