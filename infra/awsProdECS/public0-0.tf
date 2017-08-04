@@ -76,18 +76,18 @@ resource "aws_instance" "prodECSIns_03" {
 }
 
 
-# resource "aws_alb" "ecs-prod-alb" {
-#   name = "ecs-prod-alb"
-#   internal = false
-#   security_groups = [
-#     "${var.prod_public_sg_id}"]
-#   subnets = [ 
-#     "${var.prod_public_sn_01_id}",
-#     "${var.prod_public_sn_02_id}" ]
-#   tags {
-#     Environment = "production"
-#   }
-# 
+resource "aws_alb" "ecs-prod-alb" {
+  name = "ecs-prod-alb"
+  internal = false
+  security_groups = [
+    "${var.prod_public_sg_id}"]
+  subnets = [ 
+    "${var.prod_public_sn_01_id}",
+    "${var.prod_public_sn_02_id}" ]
+  tags {
+    Environment = "production"
+  }
+
 # resource "aws_alb_target_group" "ecs-prod-tg" {
 #   name = "ecs-prod-tg"
 #   port = 80
