@@ -22,7 +22,8 @@ export AWS_SECRET_ACCESS_KEY=$(ship_resource_get_integration $RES_AWS_CREDS aws_
 # Now get all VPC settings
 export REGION=$(ship_resource_get_param $RES_CONF REGION)
 export TEST_VPC_ID=$(ship_resource_get_param $RES_CONF TEST_VPC_ID)
-export TEST_PUBLIC_SN_ID=$(ship_resource_get_param $RES_CONF TEST_PUBLIC_SN_ID)
+export TEST_PUBLIC_SN_01_ID=$(ship_resource_get_param $RES_CONF TEST_PUBLIC_SN_01_ID)
+export TEST_PUBLIC_SN_02_ID=$(ship_resource_get_param $RES_CONF TEST_PUBLIC_SN_02_ID)
 export TEST_PUBLIC_SG_ID=$(ship_resource_get_param $RES_CONF TEST_PUBLIC_SG_ID)
 export AMI_ID=$(ship_resource_get_param $RES_AMI AMI_ID)
 
@@ -46,7 +47,8 @@ set_context(){
   echo "aws_secret_access_key = \"$AWS_SECRET_ACCESS_KEY\"" >> terraform.tfvars
   echo "region = \"$REGION\"" >> terraform.tfvars
   echo "test_vpc_id = \"$TEST_VPC_ID\"" >> terraform.tfvars
-  echo "test_public_sn_id = \"$TEST_PUBLIC_SN_ID\"" >> terraform.tfvars
+  echo "test_public_sn_01_id = \"$TEST_PUBLIC_SN_01_ID\"" >> terraform.tfvars
+  echo "test_public_sn_02_id = \"$TEST_PUBLIC_SN_02_ID\"" >> terraform.tfvars
   echo "test_public_sg_id = \"$TEST_PUBLIC_SG_ID\"" >> terraform.tfvars
   echo "ami_id = \"$AMI_ID\"" >> terraform.tfvars
 
